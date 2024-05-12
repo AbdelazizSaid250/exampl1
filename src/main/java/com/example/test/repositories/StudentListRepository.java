@@ -1,11 +1,11 @@
-package com.example.test.repository;
+package com.example.test.repositories;
 
 import com.example.test.model.dto.StudentDto;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class StudentRepository {
+public class StudentListRepository {
 
     // Shared Resource
     // Eager Instantiation
@@ -15,12 +15,12 @@ public class StudentRepository {
     // Lazy Instantiation
     private static List<StudentDto> instance;
 
-    private StudentRepository() {
+    private StudentListRepository() {
     }
 
     public static List<StudentDto> getInstance() {
         if (instance == null) {
-            synchronized (StudentRepository.class) {
+            synchronized (StudentListRepository.class) {
                 if (instance == null) {
                     instance = new ArrayList<>();
                 }

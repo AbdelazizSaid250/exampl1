@@ -1,4 +1,4 @@
-package com.example.test.repository;
+package com.example.test.repositories;
 
 import com.example.test.model.dto.StudentDto;
 

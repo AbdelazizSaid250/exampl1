@@ -1,10 +1,12 @@
-package com.example.test.controller;
+package com.example.test.config;
 
 import com.example.test.model.dto.StudentDto;
 import com.example.test.repositories.StudentListRepository;
 import com.example.test.repositories.StudentMapRepository;
-import org.springframework.beans.factory.annotation.Value;
+import com.example.test.service.student.StudentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -15,11 +17,13 @@ import java.util.Map;
 @RequestMapping("student")
 public class StudentController {
 
-    @Value("${student.name}")
-    private String propertiesName;
+    private final StudentService studentService;
 
-    @Value("${student.age}")
-    private Integer propertiesAge;
+    @Autowired
+    public StudentController(StudentService studentService) {
+        this.studentService = studentService;
+    }
+
 
     @PostMapping("save")
     public void saveStudentApi(@RequestBody StudentDto studentDto) {
@@ -76,8 +80,20 @@ public class StudentController {
         studentDtoMap.put(studentDto.getId(), studentDto);
     }
 
-    @GetMapping("getFromApplicationProperties")
-    public String getFromApplicationProperties() {
-        return "Student Name = " + propertiesName + ", age = " + propertiesAge;
+    @GetMapping("requestParam")
+    public ResponseEntity<String> requestParam(@RequestParam String name, @RequestParam Integer age) {
+        return ResponseEntity.ok("Student Name = " + name + ", age = " + age);
     }
+
+    @GetMapping("getCustomStudentForNameAndAge")
+    public StudentDto getCustomStudentWithNameAndAge() {
+        return studentService.getStudentForNameAndAge();
+    }
+
+    @GetMapping("getCustomStudentForAge")
+    public ResponseEntity<StudentDto> getCustomStudentWithAge() {
+        return ResponseEntity.ok(studentService.getStudentForAge());
+    }
+
+
 }

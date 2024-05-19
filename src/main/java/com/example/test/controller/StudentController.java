@@ -1,4 +1,4 @@
-package com.example.test.config;
+package com.example.test.controller;
 
 import com.example.test.model.dto.StudentDto;
 import com.example.test.repositories.StudentListRepository;

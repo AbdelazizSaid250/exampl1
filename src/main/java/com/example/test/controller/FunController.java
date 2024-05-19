@@ -1,4 +1,4 @@
-package com.example.test.config;
+package com.example.test.controller;
 
 import com.example.test.utilities.FunUtility;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,5 +1,6 @@
 package com.example.test.service.student;
 
+import com.example.test.error.exception.StudentNotFoundException;
 import com.example.test.model.dto.StudentDto;
 import com.example.test.repositories.StudentMapRepository;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,7 +28,7 @@ public class StudentServiceImpl implements StudentService {
                 .stream()
                 .filter(studentDto -> studentDto.getName().equalsIgnoreCase(propertiesName) && studentDto.getAge() > propertiesAge)
                 .findFirst()
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new StudentNotFoundException("Could not find student with name: " + propertiesName + " and age: " + propertiesAge + " in the Repository Layer!!"));
     }
 
     // Not best practice to return empty value without handling the error!!

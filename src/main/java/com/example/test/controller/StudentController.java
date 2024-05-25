@@ -29,7 +29,7 @@ public class StudentController {
     public void saveStudentApi(@RequestBody StudentDto studentDto) {
 
 //        StudentRepositorySingleton instance = StudentRepositorySingleton.INSTANCE;
-//        instance.add(studentDto);
+//        instance.addPlusOne(studentDto);
         StudentListRepository.getInstance().add(studentDto);
         StudentMapRepository.getInstance().put(studentDto.getId(), studentDto);
     }

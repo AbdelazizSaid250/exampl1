@@ -3,24 +3,31 @@ package com.example.test.error.exception;
 import com.example.test.error.model.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.sql.Timestamp;
-import java.time.Instant;
+import static com.example.test.utilities.DeviceInfo.getMacAddress;
+import static com.example.test.utilities.timing.TimingUtils.currentTimestamp;
 
-@ControllerAdvice
+@RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<ErrorResponse> handleShapeException(IllegalArgumentException exception) {
-        ErrorResponse errorResponse = new ErrorResponse();
-        errorResponse.setCode(1);
-        errorResponse.setMessage(exception.getMessage());
-        errorResponse.setDescription("The path variable is invalid");
-        errorResponse.setTimestamp(Timestamp.from(Instant.now()));
+    @ExceptionHandler(StudentNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleStudentNotFoundException(StudentNotFoundException exception) {
+
+        ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode(), exception.getErrorMessage(),
+                exception.getDescription(), currentTimestamp(), getMacAddress());
 
         return new ResponseEntity<>(errorResponse, HttpStatus.OK);
     }
+
+    @ExceptionHandler(UnsupportedShapeException.class)
+    public ResponseEntity<ErrorResponse> handleUnsupportedShapeException(UnsupportedShapeException exception) {
+        ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode(), exception.getErrorMessage(),
+                exception.getDescription(), currentTimestamp(), getMacAddress());
+
+        return new ResponseEntity<>(errorResponse, HttpStatus.OK);
+    }
+
 
 }

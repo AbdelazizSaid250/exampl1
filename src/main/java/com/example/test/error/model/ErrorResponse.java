@@ -1,13 +1,14 @@
 package com.example.test.error.model;
 
-import lombok.Data;
+import lombok.Value;
 
 import java.sql.Timestamp;
 
-@Data
+@Value
 public class ErrorResponse {
-    private int code;
-    private String message;
-    private String description;
-    private Timestamp timestamp;
+    int code;
+    String message;
+    String description;
+    Timestamp timestamp;
+    String macAddress;
 }
